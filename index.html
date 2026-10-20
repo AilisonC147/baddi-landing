@@ -1,0 +1,1099 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>BADDI｜税理士事務所のための業務AI</title>
+<meta name="description" content="BADDI は税理士事務所のための業務AI。顧問先ごとに出典つきで答える相談、定例業務の工程管理、LINE・メール・Chatwork の受信集約をひとつに。顧問先情報の守り方も具体的に公開しています。">
+<meta property="og:title" content="BADDI｜税理士事務所のための業務AI">
+<meta property="og:description" content="ベテランの経験を、使うほど賢くなる「事務所の脳」に。">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="BADDI">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="BADDI｜税理士事務所のための業務AI">
+<!-- TODO: 製品の本番は https://baddi.gbase.ai 。この LP の公開 URL が決まったら canonical / og:url / og:image（1200×630 絶対URL）を追加 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700;800&family=Noto+Sans+JP:wght@400;500;700;800&display=swap">
+<style>
+/* Layout: Sparticle 製品紹介ページ構成（Hero→課題→3つの理由→機能 feature-row→仕組み→シーン→役割→セキュリティ→数字→FAQ→CTA）。BADDI ロゴ青を主色に、白/薄灰の交互リズム */
+:root {
+  --primary: #0052d9;
+  --primary-dark: #0a3fa8;
+  --primary-soft: #e8f0ff;
+  --navy: #0f172a;
+  --navy-2: #172340;
+  --text: #0d1424;
+  --text-gray: #5b6578;
+  --bg: #ffffff;
+  --bg-gray: #f5f7fb;
+  --border: #e4e9f2;
+  --red: #d64541;
+  --red-soft: #fdeeee;
+  --green: #1f8a5b;
+  --line-green: #06c755;
+  --font: "Inter", "Noto Sans JP", system-ui, -apple-system, "Segoe UI", "Yu Gothic UI", "Hiragino Sans", Meiryo, sans-serif;
+  --shadow-sm: 0 1px 2px rgba(15,23,42,.06);
+  --shadow-md: 0 8px 24px -8px rgba(15,23,42,.16);
+  --shadow-lg: 0 24px 60px -20px rgba(15,35,90,.32);
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
+body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--font); font-size: 16px; line-height: 1.8; }
+h1, h2, h3, h4 { margin: 0; line-height: 1.45; text-wrap: balance; word-break: auto-phrase; }
+p { margin: 0; text-wrap: pretty; word-break: auto-phrase; }
+a { color: var(--primary); }
+a:focus-visible, button:focus-visible, summary:focus-visible { outline: 3px solid var(--primary); outline-offset: 3px; border-radius: 6px; }
+img { max-width: 100%; height: auto; display: block; }
+svg.i { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+.container { max-width: 1200px; margin: 0 auto; padding-inline: 24px; }
+@media (max-width: 600px) { .container { padding-inline: 16px; } }
+section { padding-block: 96px; }
+@media (max-width: 768px) { section { padding-block: 64px; } }
+.bg-gray { background: var(--bg-gray); }
+
+.sec-head { text-align: center; max-width: 760px; margin: 0 auto 56px; }
+.eyebrow { display: inline-block; font-size: 13px; font-weight: 700; letter-spacing: .12em; color: var(--primary); background: var(--primary-soft); padding: 4px 14px; border-radius: 999px; margin-bottom: 16px; }
+.sec-head h2 { font-size: clamp(26px, 3.4vw, 40px); font-weight: 800; }
+.sec-head p { margin-top: 16px; color: var(--text-gray); font-size: 17px; }
+
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 13px 26px; border-radius: 999px; font-weight: 700; font-size: 15px; text-decoration: none; transition: transform .2s, box-shadow .2s, background .2s; white-space: nowrap; }
+.btn-primary { background: var(--primary); color: #fff; box-shadow: 0 8px 20px -8px rgba(0,82,217,.6); }
+.btn-primary:hover { background: var(--primary-dark); transform: translateY(-2px); }
+.btn-outline { background: #fff; color: var(--text); border: 1.5px solid var(--border); }
+.btn-outline:hover { border-color: var(--primary); color: var(--primary); }
+.btn svg.i { width: 18px; height: 18px; }
+
+/* ---------- header ---------- */
+.nav { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 50; background: rgba(255,255,255,.92); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); }
+.nav .container { display: flex; align-items: center; justify-content: space-between; gap: 20px; height: 68px; }
+.nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); }
+.nav-logo img { height: 40px; width: auto; }
+.nav-logo span { font-size: 12px; color: var(--text-gray); border-left: 1px solid var(--border); padding-left: 10px; line-height: 1.3; }
+.nav-links { display: flex; gap: 28px; list-style: none; margin: 0; padding: 0; }
+.nav-links a { color: var(--text-gray); text-decoration: none; font-weight: 500; font-size: 15px; }
+.nav-links a:hover { color: var(--primary); }
+.nav-cta { display: flex; gap: 10px; }
+.nav-cta .btn { padding: 9px 18px; font-size: 14px; }
+@media (max-width: 1000px) { .nav-links { display: none; } }
+@media (max-width: 560px) { .nav-cta .btn-outline { display: none; } .nav-logo span { display: none; } }
+
+/* ---------- hero ---------- */
+.hero { padding-block: 72px 96px; background: radial-gradient(1200px 500px at 85% -10%, #dfe9ff 0%, transparent 60%), linear-gradient(180deg, #f3f7ff 0%, #ffffff 100%); overflow: hidden; }
+.hero .container { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: 56px; align-items: center; }
+.hero-pre { font-size: 18px; font-weight: 700; color: var(--primary); margin-bottom: 14px; }
+.hero h1 { font-size: clamp(32px, 4.4vw, 52px); font-weight: 800; letter-spacing: .01em; }
+.hero h1 .hl { background: linear-gradient(transparent 62%, #cfe0ff 62%); }
+.hero-sub { margin-top: 22px; font-size: 17px; color: var(--text-gray); max-width: 32em; }
+.hero-cta { margin-top: 32px; display: flex; gap: 12px; flex-wrap: wrap; }
+.hero-visual { position: relative; }
+.hero-stage { position: relative; aspect-ratio: 11 / 9; container-type: inline-size; }
+.hero-stage::before { content: ""; position: absolute; inset: 6% 0 4% 10%; background: radial-gradient(closest-side, rgba(47,123,255,.28), transparent); filter: blur(30px); }
+.hero-shot { position: absolute; top: 15%; left: 7%; width: 86%; transform: perspective(1800px) rotateY(-6deg) rotateX(2deg); }
+.hero-shot .browser { box-shadow: var(--shadow-lg); }
+.hc { position: absolute; background: #fff; border: 1px solid #e3e8f1; border-radius: 1.1cqw; box-shadow: 0 2.2cqw 4.5cqw -2cqw rgba(15,23,42,.35), 0 .4cqw 1cqw rgba(15,23,42,.06); font-size: 1.95cqw; line-height: 1.45; }
+.hc-head { display: flex; align-items: center; gap: .55em; }
+.hc-head b { font-weight: 800; font-size: 1.05em; }
+.hc-head small { margin-left: auto; color: var(--text-gray); font-size: .8em; }
+.hc-line { left: 0; top: 1%; width: 40%; padding: 1em 1.1em; }
+.hc-ch { background: var(--line-green); color: #fff; font-size: .75em; font-weight: 800; padding: .15em .6em; border-radius: .4em; }
+.hc-bubble { margin-top: .7em; background: #f1f4f8; border-radius: .2em 1em 1em 1em; padding: .65em .85em; font-weight: 600; font-size: .95em; }
+.hc-ans { right: 0; bottom: 3%; width: 47%; padding: 1.1em 1.2em; display: grid; gap: .55em; border-color: #c9d8f6; }
+.hc-ai { background: linear-gradient(135deg, #2f7bff, var(--primary)); color: #fff; font-size: .72em; font-weight: 800; padding: .12em .5em; border-radius: .4em; }
+.hc-tag { margin-left: auto; font-size: .72em; font-weight: 700; background: #f1eaff; color: #6a3fd1; padding: .2em .65em; border-radius: 99em; white-space: nowrap; }
+.hc-ans .sk { height: .55em; }
+.hc-srcs { display: flex; gap: .45em; flex-wrap: wrap; padding: .55em .6em; border: 1.5px solid var(--primary); border-radius: .7em; outline: .25em solid rgba(0,82,217,.15); margin-top: .2em; }
+.hc-srcs::before { content: "出典 3 件"; font-size: .75em; font-weight: 800; color: var(--primary); margin-right: .2em; align-self: center; }
+.hc-src { font-size: .75em; font-weight: 700; padding: .2em .7em; border-radius: 99em; }
+.hc-acts { display: flex; gap: .4em; flex-wrap: wrap; }
+.hc-acts span { font-size: .72em; font-weight: 700; padding: .3em .7em; border: 1px solid #e1e6ee; border-radius: .5em; color: #46536b; }
+.hc-acts span.on { border-color: var(--primary); color: #fff; background: var(--primary); }
+.hc-kn { left: 2%; bottom: 8%; display: flex; align-items: center; gap: .75em; padding: .85em 1.1em; }
+.hc-kn b { display: block; font-weight: 800; }
+.hc-kn small { display: block; color: var(--text-gray); font-size: .8em; }
+.hc-ic { width: 2.4em; height: 2.4em; border-radius: .7em; background: var(--green); color: #fff; display: grid; place-items: center; flex: none; }
+.hc-ic svg.i { width: 1.3em; height: 1.3em; }
+.browser { background: #fff; border-radius: 14px; box-shadow: var(--shadow-lg); border: 1px solid var(--border); overflow: hidden; }
+.browser-bar { height: 34px; display: flex; align-items: center; gap: 7px; padding-inline: 14px; background: #f1f4f9; border-bottom: 1px solid var(--border); }
+.browser-bar i { width: 10px; height: 10px; border-radius: 50%; background: #d5dbe6; display: block; }
+@media (max-width: 960px) { .hero .container { grid-template-columns: 1fr; } }
+/* ---------- pains ---------- */
+.pain-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.pain { background: #fff; border-radius: 16px; padding: 32px 28px; border: 1px solid var(--border); }
+.pain .ic { width: 52px; height: 52px; border-radius: 14px; background: var(--red-soft); color: var(--red); display: grid; place-items: center; margin-bottom: 18px; }
+.pain .ic svg.i { width: 26px; height: 26px; }
+.pain .quote { font-size: 14px; color: var(--red); font-weight: 700; margin-bottom: 6px; }
+.pain h3 { font-size: 20px; font-weight: 800; }
+.pain p { margin-top: 10px; color: var(--text-gray); font-size: 15px; }
+@media (max-width: 900px) { .pain-grid { grid-template-columns: 1fr; } }
+
+/* ---------- reasons ---------- */
+.reason-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.reason { position: relative; border-radius: 18px; padding: 36px 30px; background: linear-gradient(160deg, #f4f8ff 0%, #ffffff 70%); border: 1px solid var(--border); overflow: hidden; }
+.reason .num { position: absolute; right: 22px; top: 10px; font-family: "Inter", sans-serif; font-weight: 800; font-size: 72px; color: rgba(0,82,217,.07); line-height: 1; }
+.reason .ic { width: 56px; height: 56px; border-radius: 16px; background: linear-gradient(135deg, #2f7bff, var(--primary)); color: #fff; display: grid; place-items: center; box-shadow: 0 10px 20px -10px rgba(0,82,217,.7); margin-bottom: 22px; }
+.reason .ic svg.i { width: 28px; height: 28px; }
+.reason h3 { font-size: 21px; font-weight: 800; }
+.reason p { margin-top: 12px; color: var(--text-gray); font-size: 15px; }
+@media (max-width: 900px) { .reason-grid { grid-template-columns: 1fr; } }
+
+/* ---------- feature rows ---------- */
+.frow { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 64px; align-items: center; }
+.frow + .frow { margin-top: 96px; }
+.frow.rev { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); }
+.frow.rev .ftext { order: 2; }
+.flabel { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; color: var(--primary); font-size: 14px; letter-spacing: .06em; margin-bottom: 12px; }
+.flabel .ic { width: 36px; height: 36px; border-radius: 10px; background: var(--primary-soft); display: grid; place-items: center; }
+.flabel .ic svg.i { width: 20px; height: 20px; }
+.ftext h3 { font-size: clamp(22px, 2.4vw, 30px); font-weight: 800; }
+.ftext > p { margin-top: 16px; color: var(--text-gray); }
+.checks { list-style: none; margin: 22px 0 0; padding: 0; display: grid; gap: 12px; }
+.checks li { display: grid; grid-template-columns: 24px minmax(0, 1fr); gap: 10px; font-size: 15px; }
+.checks li svg.i { width: 22px; height: 22px; color: #fff; background: var(--primary); border-radius: 50%; padding: 4px; stroke-width: 3; margin-top: 2px; }
+.src-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+.src-tags span { font-size: 13px; font-weight: 700; padding: 5px 12px; border-radius: 999px; display: inline-flex; gap: 6px; align-items: center; }
+.src-tags svg.i { width: 15px; height: 15px; }
+.t-client { background: #f1eaff; color: #6a3fd1; }
+.t-office { background: var(--primary-soft); color: var(--primary); }
+.t-public { background: #eef1f5; color: #46536b; }
+.fvisual { position: relative; }
+.fvisual .browser { box-shadow: var(--shadow-md); }
+.panel-shot { border-radius: 16px; overflow: hidden; border: 1px solid var(--border); box-shadow: var(--shadow-md); background: #fff; max-width: 460px; margin-inline: auto; }
+.ch-badges { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 18px; }
+.ch { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 700; padding: 6px 12px; border-radius: 8px; border: 1px solid var(--border); background: #fff; }
+.ch i { width: 10px; height: 10px; border-radius: 3px; display: block; }
+@media (max-width: 960px) { .frow, .frow.rev { grid-template-columns: 1fr; gap: 32px; } .frow.rev .ftext { order: 0; } .frow + .frow { margin-top: 72px; } }
+
+/* ---------- feature flow / progress ---------- */
+.flow-strip { list-style: none; margin: 0 0 88px; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 28px; counter-reset: fs; }
+.flow-strip li { position: relative; background: #fff; border: 1px solid var(--border); border-radius: 16px; padding: 22px 16px 18px; text-align: center; display: grid; justify-items: center; gap: 4px; }
+.flow-strip li + li::before { content: ""; position: absolute; left: -22px; top: 50%; width: 16px; height: 16px; border-top: 3px solid var(--primary); border-right: 3px solid var(--primary); transform: translateY(-50%) rotate(45deg); opacity: .5; }
+.flow-strip .ic { width: 48px; height: 48px; border-radius: 14px; background: var(--primary-soft); color: var(--primary); display: grid; place-items: center; margin-bottom: 6px; }
+.flow-strip .ic svg.i { width: 24px; height: 24px; }
+.flow-strip b { font-size: 15.5px; font-weight: 800; }
+.flow-strip small { font-size: 13px; color: var(--text-gray); }
+@media (max-width: 960px) { .flow-strip { grid-template-columns: 1fr; gap: 22px; max-width: 420px; margin-inline: auto; } .flow-strip li + li::before { left: 50%; top: -18px; transform: translateX(-50%) rotate(135deg); } }
+.progress-block { margin-top: 112px; }
+.progress-block h3 { font-size: clamp(22px, 2.4vw, 30px); font-weight: 800; }
+.duo { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; margin-top: 32px; align-items: stretch; }
+.duo-card { background: #fff; border: 1px solid var(--border); border-radius: 18px; padding: 20px 20px 26px; }
+.duo-card .browser { box-shadow: var(--shadow-md); }
+.duo-card .browser img { aspect-ratio: 16 / 9; width: 100%; height: auto; object-fit: cover; object-position: left top; background: #fff; }
+.duo-card h4 { font-size: 18px; font-weight: 800; margin-top: 20px; }
+.duo-card p { color: var(--text-gray); font-size: 15px; margin-top: 8px; }
+@media (max-width: 900px) { .duo { grid-template-columns: 1fr; } }
+.feat-note { margin-top: 20px; font-size: 13px; color: var(--text-gray); text-align: right; }
+.scene-photo { display: block; width: 100%; aspect-ratio: 16 / 7; object-fit: cover; border-radius: 14px; margin-bottom: 22px; }
+.snum { background: var(--primary); color: #fff; font-size: 12px; font-weight: 800; padding: 3px 10px; border-radius: 99px; letter-spacing: .04em; }
+.snum-s { font-size: 13px; font-weight: 800; color: var(--primary); margin-bottom: 2px; }
+.mini-feature { margin-top: 80px; display: grid; grid-template-columns: 72px minmax(0, 1fr); gap: 24px; align-items: center; background: #fff; border: 1px solid var(--border); border-radius: 18px; padding: 28px 32px; }
+.mini-feature .ic { width: 72px; height: 72px; border-radius: 18px; background: linear-gradient(135deg, #2f7bff, var(--primary)); color: #fff; display: grid; place-items: center; }
+.mini-feature .ic svg.i { width: 34px; height: 34px; }
+.mini-feature h3 { font-size: 20px; font-weight: 800; }
+.mini-feature p { color: var(--text-gray); font-size: 15px; margin-top: 4px; }
+@media (max-width: 600px) { .mini-feature { grid-template-columns: 1fr; padding: 24px; } }
+
+/* ---------- loop ---------- */
+.loop { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 40px; position: relative; }
+.loop::before { content: ""; position: absolute; left: 12%; right: 12%; top: 44px; border-top: 2px dashed #b9cdf5; z-index: 0; }
+.lstep { position: relative; z-index: 1; text-align: center; }
+.lstep .ic { width: 88px; height: 88px; margin: 0 auto 18px; border-radius: 50%; background: #fff; border: 2px solid var(--primary); color: var(--primary); display: grid; place-items: center; box-shadow: 0 0 0 8px #fff; }
+.lstep.key .ic { background: var(--primary); color: #fff; }
+.lstep .ic svg.i { width: 36px; height: 36px; }
+.lstep .n { font-family: "Inter", sans-serif; font-weight: 800; font-size: 13px; color: var(--primary); letter-spacing: .1em; }
+.lstep h3 { font-size: 18px; font-weight: 800; margin-top: 4px; }
+.lstep p { margin-top: 8px; color: var(--text-gray); font-size: 14.5px; }
+.loop-foot { margin: 44px auto 0; max-width: 720px; display: flex; align-items: center; justify-content: center; gap: 12px; background: var(--primary-soft); color: var(--primary); font-weight: 700; padding: 14px 22px; border-radius: 999px; text-align: center; }
+@media (max-width: 900px) { .loop { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 40px; } .loop::before { display: none; } }
+@media (max-width: 480px) { .loop { grid-template-columns: 1fr; } .loop-foot { border-radius: 16px; } }
+
+/* ---------- scenes ---------- */
+.scene-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.scene { background: #fff; border-radius: 18px; overflow: hidden; border: 1px solid var(--border); display: flex; flex-direction: column; transition: transform .25s, box-shadow .25s; }
+.scene:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+.scene .photo { aspect-ratio: 4 / 3; overflow: hidden; position: relative; }
+.scene .photo img { width: 100%; height: 100%; object-fit: cover; }
+.scene .photo .tag { position: absolute; left: 14px; top: 14px; background: rgba(255,255,255,.95); color: var(--primary); font-weight: 700; font-size: 13px; padding: 4px 12px; border-radius: 999px; }
+.scene .body { padding: 24px; display: flex; flex-direction: column; gap: 14px; flex: 1; }
+.scene h3 { font-size: 18.5px; font-weight: 800; }
+.ba { display: grid; gap: 8px; margin-top: auto; }
+.ba div { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 8px; font-size: 14px; line-height: 1.65; padding: 10px 12px; border-radius: 10px; }
+.ba svg.i { width: 18px; height: 18px; margin-top: 2px; stroke-width: 2.4; }
+.ba .before { background: var(--red-soft); color: #7a2a27; }
+.ba .before svg.i { color: var(--red); }
+.ba .after { background: var(--primary-soft); color: #13336f; }
+.ba .after svg.i { color: var(--primary); }
+.scene-extra { margin-top: 24px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.scene-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); background: #fff; border-radius: 18px; overflow: hidden; border: 1px solid var(--border); }
+.scene-row .photo { min-height: 220px; background: var(--bg-gray); }
+.scene-row .photo img { width: 100%; height: 100%; object-fit: cover; object-position: top left; }
+.scene-row .body { padding: 24px; }
+.scene-row h3 { font-size: 18.5px; font-weight: 800; }
+.scene-row p { margin-top: 10px; color: var(--text-gray); font-size: 14.5px; }
+.scene-row .when { font-size: 13px; color: var(--primary); font-weight: 700; margin-bottom: 6px; }
+@media (max-width: 960px) { .scene-grid { grid-template-columns: 1fr; max-width: 560px; margin-inline: auto; } .scene-extra { grid-template-columns: 1fr; } }
+@media (max-width: 560px) { .scene-row { grid-template-columns: 1fr; } .scene-row .photo { min-height: 0; aspect-ratio: 16 / 9; } }
+
+.icon-photo { display: grid; place-items: center; background: linear-gradient(135deg, #2f7bff, var(--primary)) !important; color: #fff; }
+.icon-photo svg.i { width: 64px; height: 64px; stroke-width: 1.4; }
+
+.scene-desc { color: var(--text-gray); font-size: 14.5px; }
+
+.roles-panel { margin: 0 0 56px; }
+.roles-panel .roles { margin-top: 28px; }
+/* ---------- abstract UI mockups ---------- */
+.mock { aspect-ratio: 4 / 3; container-type: inline-size; border-radius: 20px; background: radial-gradient(80% 70% at 85% 10%, #dde8ff 0%, transparent 60%), linear-gradient(160deg, #f1f5ff 0%, #f8fafd 100%); border: 1px solid #e3eaf7; overflow: hidden; position: relative; }
+.bg-gray .mock { background: radial-gradient(80% 70% at 85% 10%, #dfe9ff 0%, transparent 60%), linear-gradient(160deg, #ffffff 0%, #f4f7fd 100%); }
+.mk { position: absolute; inset: 0; font-size: 2.35cqw; line-height: 1.4; display: grid; place-items: center; padding: 7% 9%; }
+.mk-card { width: 100%; background: #fff; border: 1px solid #e5e9f0; border-radius: 1.1em; box-shadow: 0 1.6em 3em -1.4em rgba(15,23,42,.28), 0 .3em .8em rgba(15,23,42,.05); padding: 1.2em 1.3em; display: grid; gap: .75em; }
+.mk-bar { display: flex; align-items: center; gap: .6em; padding-bottom: .7em; border-bottom: 1px solid #eef1f6; }
+.mk-bar b { font-size: 1.12em; font-weight: 800; margin-right: auto; }
+.mk-chip { display: inline-block; font-size: .78em; font-weight: 700; padding: .2em .7em; border-radius: 99em; white-space: nowrap; }
+.c-client { background: #f1eaff; color: #6a3fd1; }
+.c-office { background: var(--primary-soft); color: var(--primary); }
+.c-public { background: #eef1f5; color: #46536b; }
+.sk { display: block; height: .55em; border-radius: .3em; background: #e8edf4; }
+.mk-q { justify-self: end; max-width: 78%; background: var(--primary); color: #fff; font-size: .9em; padding: .6em .9em; border-radius: .9em .9em .2em .9em; }
+.mk-ans { display: grid; gap: .45em; background: #f7f9fc; border-radius: .8em; padding: .8em .9em; }
+.mk-ans-h { display: flex; align-items: center; gap: .45em; font-weight: 800; font-size: .88em; margin-bottom: .1em; }
+.mk-ai { background: linear-gradient(135deg, #2f7bff, var(--primary)); color: #fff; font-size: .75em; font-weight: 800; padding: .1em .5em; border-radius: .4em; }
+.mk-srcbox { margin-top: .35em; background: #fff; border: 1px solid #e5e9f0; border-radius: .7em; padding: .6em .7em; display: grid; gap: .45em; }
+.mk-cap { font-size: .75em; font-weight: 700; color: var(--text-gray); }
+.mk-src { display: grid; grid-template-columns: 5.6em minmax(0, 1fr); align-items: center; gap: .5em; }
+.mk-src .mk-chip { text-align: center; }
+.mk-actions { display: flex; gap: .5em; flex-wrap: wrap; }
+.mk-actions span { font-size: .8em; font-weight: 700; padding: .35em .8em; border: 1px solid #e1e6ee; border-radius: .5em; color: #46536b; }
+.mk-actions span.on { border-color: var(--primary); color: var(--primary); background: var(--primary-soft); }
+.mk .hl { outline: .22em solid rgba(0,82,217,.2); outline-offset: .15em; border-color: var(--primary) !important; background-color: #fff; }
+.mk-callout { position: absolute; z-index: 2; background: var(--navy); color: #fff; font-weight: 800; font-size: .95em; padding: .55em 1em; border-radius: .7em; box-shadow: 0 1em 2em -1em rgba(15,23,42,.6); white-space: nowrap; }
+.mk-callout::before { content: ""; display: inline-block; width: .55em; height: .55em; border-radius: 50%; background: #4f8cff; margin-right: .5em; vertical-align: .1em; }
+.mk .warn { color: #b7791f; }
+/* inbox */
+.mk-inbox { grid-template-columns: auto auto minmax(0, 1fr); gap: .9em; padding-inline: 5%; font-size: 2.75cqw; }
+.mk-chs { display: grid; gap: .6em; }
+.mk-chs span { display: flex; align-items: center; gap: .45em; background: #fff; border: 1px solid #e5e9f0; border-radius: .6em; padding: .45em .7em; font-size: .82em; font-weight: 700; white-space: nowrap; box-shadow: 0 .3em .8em -.4em rgba(15,23,42,.2); }
+.mk-chs i { width: .7em; height: .7em; border-radius: .2em; }
+.mk-merge { color: var(--primary); }
+.mk-merge svg.i { width: 2em; height: 2em; }
+.mk-count { background: var(--red); color: #fff; font-size: .75em; font-weight: 800; border-radius: 99em; padding: .05em .55em; margin-right: auto; }
+.mk-inbox .mk-bar b { margin-right: 0; }
+.mk-row { display: grid; grid-template-columns: 1.9em minmax(0, 1fr); gap: .6em; align-items: start; padding: .45em .5em; border: 1px solid transparent; border-radius: .7em; }
+.mk-row .av { width: 1.9em; height: 1.9em; border-radius: 50%; opacity: .9; }
+.mk-row b { font-size: .88em; margin-right: .4em; }
+.mk-row .sk { margin-top: .45em; }
+.mk-file { margin-top: .35em; font-size: .72em; color: var(--primary); background: var(--primary-soft); display: inline-block; padding: .1em .6em; border-radius: .4em; }
+/* tasks */
+.mk-step { display: grid; grid-template-columns: 1em minmax(0, 1fr) auto auto; gap: .7em; align-items: center; padding: .65em .7em; border: 1px solid #eef1f6; border-radius: .7em; }
+.mk-step b { font-size: .95em; }
+.mk-step .dot { width: .8em; height: .8em; border-radius: 50%; background: #d5dbe5; }
+.dot.ok { background: var(--green); }
+.dot.urgent { background: var(--red); }
+.dot.wait { background: #8a5cf6; }
+.due { font-size: .75em; font-weight: 700; color: var(--red); }
+.st { font-size: .75em; font-weight: 800; padding: .2em .7em; border-radius: 99em; white-space: nowrap; justify-self: start; }
+.st-ok { background: #e6f5ee; color: var(--green); }
+.st-urgent { background: var(--red-soft); color: var(--red); }
+.st-check { background: #f1eaff; color: #6a3fd1; }
+.st-gray { background: #eef1f5; color: #5b667a; }
+.st-blue { background: var(--primary-soft); color: var(--primary); }
+/* customers */
+.mk-tr { display: grid; grid-template-columns: minmax(0, 1.5fr) 3.4em minmax(0, 1.6fr) 2em; gap: .6em; align-items: center; padding: .45em .6em; border-radius: .6em; border: 1px solid transparent; font-size: .9em; }
+.mk-tr b { font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mk-th { font-size: .75em; color: var(--text-gray); font-weight: 700; padding-block: .1em; }
+.mk-tr .badge { background: var(--red); color: #fff; font-size: .75em; font-weight: 800; width: 1.6em; height: 1.6em; display: grid; place-items: center; border-radius: 50%; }
+.duo-card .mock { border-radius: 14px; }
+.sec-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; margin-bottom: 40px; text-align: center; }
+.sec-stats > div { border-top: 2px solid #2b3d6b; padding-top: 22px; }
+.sec-stats .v { font-family: "Inter", sans-serif; font-weight: 800; font-size: clamp(40px, 4.6vw, 58px); line-height: 1.1; color: #fff; }
+.sec-stats .v small { font-family: var(--font); font-size: 17px; font-weight: 700; margin-left: 4px; color: #9cbcff; }
+.sec-stats .l { margin-top: 8px; font-weight: 700; color: #e7ecf6; }
+.sec-stats .d { margin-top: 2px; font-size: 13.5px; color: #a8b4cc; }
+@media (max-width: 700px) { .sec-stats { grid-template-columns: 1fr; gap: 8px; } }
+
+/* ---------- architecture diagram ---------- */
+.arch { margin-top: 28px; display: grid; grid-template-columns: minmax(0, 1fr) 56px 230px; align-items: stretch; }
+.arch-in { background: #f3f7ff; border: 1.5px solid #cddcfb; border-radius: 18px; padding: 22px; display: grid; grid-template-columns: minmax(0, .9fr) 24px minmax(0, 1.3fr); gap: 14px; align-items: start; }
+.arch-right { align-self: center; color: #7f9ad6; display: grid; place-items: center; }
+.arch-right svg.i { width: 24px; height: 24px; }
+.arch-zone-label { grid-column: 1 / -1; display: flex; align-items: center; gap: 8px; font-weight: 800; color: var(--primary); font-size: 14px; }
+.arch-zone-label svg.i { width: 18px; height: 18px; }
+.arch-stack { display: grid; }
+.arch-box { display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 12px; align-items: start; background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 14px; }
+.arch-box .ic { width: 40px; height: 40px; border-radius: 10px; background: var(--primary-soft); color: var(--primary); display: grid; place-items: center; }
+.arch-box .ic svg.i { width: 20px; height: 20px; }
+.arch-box h4 { font-size: 15px; font-weight: 800; }
+.arch-box p { font-size: 12.5px; color: var(--text-gray); margin-top: 2px; }
+.arch-box.dark { background: var(--navy); border-color: var(--navy); }
+.arch-box.dark h4 { color: #fff; }
+.arch-box.dark p { color: #a8b4cc; }
+.arch-box.dark .ic { background: rgba(111,156,255,.2); color: #9cbcff; }
+.arch-box.ai { background: var(--primary-soft); border-color: #cddcfb; }
+.arch-box.ai .ic { background: var(--primary); color: #fff; }
+.arch-tag { margin-top: 8px; display: inline-flex; gap: 5px; align-items: center; font-size: 11.5px; font-weight: 700; color: var(--green); background: #e6f5ee; padding: 3px 8px; border-radius: 6px; }
+.arch-tag svg.i { width: 13px; height: 13px; flex: none; }
+.arch-down { height: 22px; width: 2px; background: #9db6e8; justify-self: center; position: relative; }
+.arch-down::after { content: ""; position: absolute; bottom: -1px; left: -4px; border: 5px solid transparent; border-top-color: #9db6e8; border-bottom: 0; }
+.arch-gates { background: #fff; border: 1px solid var(--border); border-radius: 14px; padding: 16px; display: grid; gap: 12px; }
+.arch-gate-head { font-size: 13px; font-weight: 800; color: var(--text-gray); letter-spacing: .04em; }
+.arch-lane { border: 1px solid #e6ebf3; border-radius: 12px; padding: 12px 14px; display: grid; gap: 8px; }
+.lane-name { display: flex; align-items: center; gap: 7px; font-weight: 800; font-size: 14.5px; }
+.lane-name svg.i { width: 18px; height: 18px; color: var(--primary); }
+.lane-row { display: grid; grid-template-columns: 46px minmax(0, 1fr); gap: 8px; align-items: center; }
+.lane-row .pills { margin-top: 0; }
+.lane-k { font-size: 11.5px; font-weight: 800; text-align: center; padding: 3px 0; border-radius: 6px; }
+.lane-k.ok { background: var(--primary-soft); color: var(--primary); }
+.lane-k.ng { background: var(--red-soft); color: var(--red); }
+.lane-k.rp, .pill.rp { background: #e6f5ee; color: var(--green); }
+.arch-log { grid-column: 1 / -1; display: flex; gap: 8px; align-items: center; font-size: 13px; color: #46536b; background: #fff; border: 1px dashed #b9c8e6; border-radius: 10px; padding: 10px 14px; }
+.arch-log svg.i { width: 18px; height: 18px; color: var(--primary); flex: none; }
+.arch-edge { position: relative; display: grid; place-items: center; }
+.arch-edge::before { content: ""; position: absolute; top: 0; bottom: 0; left: 50%; border-left: 2px dashed #c3cbd9; }
+.arch-edge span { position: relative; background: #fff; font-size: 12px; font-weight: 800; color: var(--text-gray); padding: 6px 0; writing-mode: vertical-rl; letter-spacing: .2em; }
+.arch-out { display: grid; align-content: center; gap: 14px; }
+.arch-send, .arch-back { display: flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 800; }
+.arch-send { color: var(--primary); }
+.arch-back { color: var(--green); justify-content: flex-end; }
+.arch-send svg.i, .arch-back svg.i { width: 18px; height: 18px; }
+.arch-back svg.i { transform: rotate(180deg); }
+@media (max-width: 960px) {
+  .arch { grid-template-columns: 1fr; }
+  .arch-in { grid-template-columns: 1fr; }
+  .arch-right svg.i { transform: rotate(90deg); }
+  .arch-edge { height: 44px; }
+  .arch-edge::before { top: 50%; bottom: auto; left: 0; right: 0; border-left: 0; border-top: 2px dashed #c3cbd9; }
+  .arch-edge span { writing-mode: horizontal-tb; padding: 0 10px; }
+  .arch-send svg.i { transform: rotate(90deg); }
+  .arch-back svg.i { transform: rotate(-90deg); }
+  .arch-back { justify-content: flex-start; }
+}
+/* ---------- roles ---------- */
+.roles { display: grid; grid-template-columns: minmax(0, 1fr) 80px minmax(0, 1fr); align-items: stretch; }
+.role { border-radius: 18px; padding: 32px; }
+.role.ai { background: linear-gradient(160deg, #eaf1ff, #f8fbff); border: 1px solid #d3e1fb; }
+.role.human { background: #fff; border: 1px solid var(--border); box-shadow: var(--shadow-md); }
+.role-head { display: flex; gap: 14px; align-items: center; margin-bottom: 18px; }
+.role-head .ic { width: 52px; height: 52px; border-radius: 14px; display: grid; place-items: center; }
+.role.ai .ic { background: var(--primary); color: #fff; }
+.role.human .ic { background: var(--navy); color: #fff; }
+.role-head h3 { font-size: 20px; font-weight: 800; }
+.role-head small { display: block; font-size: 13px; color: var(--text-gray); font-weight: 500; }
+.role ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+.role li { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 10px; font-size: 15px; }
+.role li svg.i { width: 20px; height: 20px; margin-top: 3px; stroke-width: 2.4; }
+.role.ai li svg.i { color: var(--primary); }
+.role.human li svg.i { color: var(--green); }
+.handoff { display: grid; place-items: center; color: var(--primary); }
+.handoff div { display: grid; justify-items: center; gap: 6px; font-size: 12px; font-weight: 700; text-align: center; line-height: 1.4; }
+.handoff svg.i { width: 34px; height: 34px; }
+@media (max-width: 900px) { .roles { grid-template-columns: 1fr; gap: 12px; } .handoff svg.i { transform: rotate(90deg); } }
+
+/* ---------- security (dark) ---------- */
+.security { background: radial-gradient(900px 400px at 10% 0%, #1b2f63 0%, transparent 60%), var(--navy); color: #e7ecf6; }
+.security .sec-head h2 { color: #fff; }
+.security .sec-head p { color: #a8b4cc; }
+.security .eyebrow { background: rgba(111,156,255,.16); color: #9cbcff; }
+.guard-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }
+.guard-grid .guard { padding: 22px; }
+.guard-grid .guard h3 { font-size: 15.5px; white-space: nowrap; }
+@media (max-width: 1100px) { .guard-grid .guard h3 { white-space: normal; font-size: 17px; } }
+.guard { background: var(--navy-2); border: 1px solid #263459; border-radius: 16px; padding: 28px; }
+.guard .ic { width: 50px; height: 50px; border-radius: 13px; background: rgba(111,156,255,.14); color: #8fb2ff; display: grid; place-items: center; margin-bottom: 16px; }
+.guard h3 { font-size: 17.5px; font-weight: 800; color: #fff; }
+.guard p { margin-top: 10px; font-size: 14.5px; color: #a8b4cc; }
+.guard code { font-family: "Inter", monospace; font-size: 13px; color: #fff; background: rgba(111,156,255,.22); padding: 1px 7px; border-radius: 5px; }
+@media (max-width: 1100px) { .guard-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 600px) { .guard-grid { grid-template-columns: 1fr; } }
+
+.flow { margin-top: 56px; background: #fff; color: var(--text); border-radius: 20px; padding: 36px; }
+.flow h3 { font-size: 22px; font-weight: 800; }
+.flow > p { color: var(--text-gray); margin-top: 8px; font-size: 15px; }
+.flow-diagram { margin-top: 28px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr) minmax(0, 1fr); gap: 0; align-items: center; }
+.node { border-radius: 16px; padding: 22px; text-align: center; }
+.node .ic { width: 52px; height: 52px; margin: 0 auto 10px; border-radius: 14px; display: grid; place-items: center; }
+.node h4 { font-size: 16px; font-weight: 800; }
+.node p { font-size: 13px; color: var(--text-gray); margin-top: 4px; }
+.node.office { background: var(--bg-gray); border: 1px solid var(--border); }
+.node.office .ic { background: var(--navy); color: #fff; }
+.node.ai { background: var(--primary-soft); border: 1px solid #cddcfb; }
+.node.ai .ic { background: var(--primary); color: #fff; }
+.pipes { display: grid; gap: 14px; padding-inline: 18px; }
+.pipe { border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; position: relative; background: #fff; }
+.pipe .name { font-weight: 800; font-size: 14.5px; display: flex; justify-content: space-between; gap: 8px; align-items: center; }
+.pipe .name svg.i { color: var(--primary); width: 20px; height: 20px; }
+.pills { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 6px; }
+.pill { font-size: 12.5px; font-weight: 700; padding: 3px 10px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; }
+.pill svg.i { width: 13px; height: 13px; stroke-width: 2.6; }
+.pill.out { background: var(--primary-soft); color: var(--primary); }
+.pill.stop { background: var(--red-soft); color: var(--red); }
+@media (max-width: 900px) { .flow-diagram { grid-template-columns: 1fr; gap: 14px; } .pipes { padding-inline: 0; } .flow { padding: 24px; } }
+
+
+/* ---------- numbers ---------- */
+.num-band { background: linear-gradient(120deg, #0a46c4 0%, var(--primary) 50%, #2f7bff 100%); color: #fff; padding-block: 72px; }
+.num-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; text-align: center; }
+.num-grid .v { font-family: "Inter", sans-serif; font-weight: 800; font-size: clamp(44px, 5vw, 64px); line-height: 1.1; font-variant-numeric: tabular-nums; }
+.num-grid .v small { font-family: var(--font); font-size: 18px; font-weight: 700; margin-left: 4px; }
+.num-grid .l { margin-top: 10px; font-weight: 700; font-size: 15px; }
+.num-grid .d { margin-top: 4px; font-size: 13.5px; color: rgba(255,255,255,.78); }
+.num-note { text-align: center; margin-top: 32px; font-size: 13px; color: rgba(255,255,255,.75); }
+@media (max-width: 800px) { .num-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 36px; } }
+
+/* ---------- gallery ---------- */
+.gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; }
+.gallery figure { margin: 0; }
+.gallery figcaption { margin-top: 12px; font-weight: 700; font-size: 15px; display: flex; gap: 8px; align-items: center; }
+.gallery figcaption span { color: var(--text-gray); font-weight: 500; font-size: 14px; }
+@media (max-width: 760px) { .gallery { grid-template-columns: 1fr; } }
+
+/* ---------- FAQ ---------- */
+.faq { max-width: 860px; margin: 0 auto; display: grid; gap: 12px; }
+.faq details { background: #fff; border: 1px solid var(--border); border-radius: 14px; padding: 4px 24px; }
+.faq summary { cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding-block: 18px; font-weight: 800; font-size: 17px; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::before { content: "Q"; font-family: "Inter", sans-serif; color: var(--primary); font-weight: 800; margin-right: 4px; }
+.faq summary span { flex: 1; }
+.faq summary svg.i { transition: transform .2s; color: var(--primary); }
+.faq details[open] summary svg.i { transform: rotate(45deg); }
+.faq details p { padding-bottom: 20px; color: var(--text-gray); font-size: 15px; }
+
+/* ---------- CTA ---------- */
+.cta { padding-block: 0 96px; }
+.cta-box { position: relative; overflow: hidden; border-radius: 28px; background: linear-gradient(120deg, #0a46c4 0%, var(--primary) 55%, #3a86ff 100%); color: #fff; padding: 64px 56px; display: grid; grid-template-columns: 1fr; justify-items: center; text-align: center; gap: 28px; gap: 40px; align-items: center; }
+.cta-box::before { content: ""; position: absolute; inset: 0; background-image: radial-gradient(rgba(255,255,255,.14) 1px, transparent 1.4px); background-size: 22px 22px; }
+.cta-box > * { position: relative; }
+.cta-box h2 { font-size: clamp(24px, 3vw, 34px); font-weight: 800; }
+.cta-box p { margin-top: 14px; color: rgba(255,255,255,.86); }
+.cta-actions { display: flex; justify-content: center; }
+.cta-actions .btn { justify-content: center; }
+.btn-white { background: #fff; color: var(--primary); }
+.btn-white:hover { transform: translateY(-2px); }
+.btn-ghost-w { border: 1.5px solid rgba(255,255,255,.6); color: #fff; }
+.btn-ghost-w:hover { background: rgba(255,255,255,.12); }
+@media (max-width: 860px) { .cta-box { grid-template-columns: 1fr; padding: 40px 24px; } }
+
+/* ---------- footer ---------- */
+footer { background: var(--navy); color: #a8b4cc; padding-block: 64px 32px; font-size: 14px; }
+.foot-grid { display: grid; grid-template-columns: minmax(0, 1.3fr) repeat(4, minmax(0, 1fr)); gap: 32px; }
+.foot-provider { margin-top: 10px !important; font-size: 13px; }
+footer .nw { white-space: nowrap; }
+.fdesc { color: #6b7894; font-size: 12px; margin-left: 2px; }
+.foot-brand img { height: 44px; width: auto; background: #fff; border-radius: 10px; padding: 4px 8px; }
+.foot-brand p { margin-top: 16px; max-width: 22em; }
+footer h4 { color: #fff; font-size: 14px; font-weight: 700; margin-bottom: 14px; }
+footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+footer a { color: #a8b4cc; text-decoration: none; }
+footer a:hover { color: #fff; }
+.foot-bottom { margin-top: 48px; padding-top: 24px; border-top: 1px solid #23304d; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: 12.5px; }
+@media (max-width: 1080px) { .foot-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .foot-brand { grid-column: 1 / -1; } }
+@media (max-width: 520px) { .foot-grid { grid-template-columns: 1fr; } }
+</style>
+
+<!-- icon sprite -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-msg" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 9h8M8 13h5"/></symbol>
+  <symbol id="i-inbox" viewBox="0 0 24 24"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18M9 16l2 2 4-4"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></symbol>
+  <symbol id="i-user-minus" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 11h-6"/></symbol>
+  <symbol id="i-file-alert" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M12 11v4M12 18h.01"/></symbol>
+  <symbol id="i-repeat" viewBox="0 0 24 24"><path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></symbol>
+  <symbol id="i-building" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 22v-4h6v4M8 6h.01M12 6h.01M16 6h.01M8 10h.01M12 10h.01M16 10h.01M8 14h.01M12 14h.01M16 14h.01"/></symbol>
+  <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+  <symbol id="i-eye-off" viewBox="0 0 24 24"><path d="M9.88 9.88a3 3 0 1 0 4.24 4.24M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68M6.61 6.61A13.53 13.53 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61M2 2l20 20"/></symbol>
+  <symbol id="i-log" viewBox="0 0 24 24"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2M12 11h4M12 16h4M8 11h.01M8 16h.01"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5M12 15V3"/></symbol>
+  <symbol id="i-user-check" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="m16 11 2 2 4-4"/></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3l1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2z"/><path d="M19 3v4M17 5h4"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V2H6.5A2.5 2.5 0 0 0 4 4.5z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.46 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3z"/><path d="M12 9v4M12 17h.01"/></symbol>
+  <symbol id="i-db" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5M3 12c0 1.66 4 3 9 3s9-1.34 9-3"/></symbol>
+  <symbol id="i-cpu" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4z"/><path d="M22 2 11 13"/></symbol>
+</svg>
+
+<header class="nav">
+  <div class="container">
+    <a class="nav-logo" href="#top" aria-label="BADDI トップ">
+      <img src="img/logo.png" alt="BADDI" width="106" height="86">
+      <span>税理士事務所の<br>業務AI</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#features">利用シーンと機能</a></li>
+      <li><a href="#security">セキュリティ</a></li>
+      <li><a href="#faq">よくある質問</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a class="btn btn-primary" href="https://www.sparticle.com/ja/contact-us-jp" target="_blank" rel="noopener">お問い合わせ</a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <div>
+        <h1>ベテランの経験を、<br>使うほど賢くなる<br><span class="hl">「事務所の脳」</span>に。</h1>
+        <p class="hero-sub">税理士事務所の業務AI「BADDI」。顧問先ごとの事情、所内の判断基準、国税庁の公開資料を出典つきで引き出します。LINE やメールの相談も、決算期の工程も、顧問先を軸にひとつの画面で追えます。</p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="https://www.sparticle.com/ja/contact-us-jp" target="_blank" rel="noopener">お問い合わせ <svg class="i"><use href="#i-arrow"/></svg></a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-stage">
+          <div class="hero-shot">
+            <div class="browser">
+              <div class="browser-bar"><i></i><i></i><i></i></div>
+              <img src="img/02-consult.png" alt="BADDIに相談の実際の画面" width="1440" height="800" fetchpriority="high">
+            </div>
+          </div>
+          <div class="hc hc-line" aria-hidden="true">
+            <div class="hc-head"><span class="hc-ch">LINE</span><b>山田商事</b><small>9:12</small></div>
+            <div class="hc-bubble">社用車を社員に貸したら、給与課税になりますか？</div>
+          </div>
+          <div class="hc hc-ans" aria-hidden="true">
+            <div class="hc-head"><span class="hc-ai">AI</span><b>BADDIに相談</b><span class="hc-tag">山田商事 に紐付け</span></div>
+            <i class="sk" style="width:92%"></i><i class="sk" style="width:84%"></i><i class="sk" style="width:58%"></i>
+            <div class="hc-srcs">
+              <span class="hc-src c-client">顧客専属</span><span class="hc-src c-office">事務所</span><span class="hc-src c-public">国税庁</span>
+            </div>
+            <div class="hc-acts"><span>タスクにする</span><span>回答案にする</span><span class="on">ナレッジにする</span></div>
+          </div>
+          <div class="hc hc-kn" aria-hidden="true">
+            <div class="hc-ic"><svg class="i"><use href="#i-book"/></svg></div>
+            <div><b>事務所ナレッジに追加</b><small>次の相談で出典として使われます</small></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PAIN -->
+  <section class="bg-gray" id="problems">
+    <div class="container">
+      <div class="sec-head">
+        <h2>事務所の知恵が、人の頭の中に散らばっている</h2>
+      </div>
+      <div class="pain-grid">
+        <div class="pain">
+          <div class="ic"><svg class="i"><use href="#i-user-minus"/></svg></div>
+          <div class="quote">「あの件は〇〇さんしか分からない」</div>
+          <h3>経験が人に紐付いている</h3>
+          <p>判断の勘所はベテランの頭の中。退職や異動とともに事務所から消えてしまいます。</p>
+        </div>
+        <div class="pain">
+          <div class="ic"><svg class="i"><use href="#i-file-alert"/></svg></div>
+          <div class="quote">「あの顧問先の決算、どこまで進んでる？」</div>
+          <h3>事務所全体の進み具合が見えない</h3>
+          <p>担当者に一人ずつ聞いて回らないと、遅れている顧問先に気づけません。</p>
+        </div>
+        <div class="pain">
+          <div class="ic"><svg class="i"><use href="#i-repeat"/></svg></div>
+          <div class="quote">「この質問、前にも答えたはず」</div>
+          <h3>同じ質問に何度も答えている</h3>
+          <p>顧問先の個別事情がメール、メモ、各自の記憶に分散。過去の回答を探すだけで時間がかかります。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REASONS -->
+  <section id="reasons">
+    <div class="container">
+      <div class="sec-head">
+        <h2>顧問先を軸に、事務所の知恵と仕事をまとめる</h2>
+      </div>
+      <div class="reason-grid">
+        <div class="reason">
+          <div class="num">01</div>
+          <div class="ic"><svg class="i"><use href="#i-building"/></svg></div>
+          <h3>顧問先ごとに分けて答える</h3>
+          <p>相談は必ず一つの顧問先に紐付き、その顧問先の情報だけを見て答えます。他の顧問先の情報が混ざることはありません。</p>
+        </div>
+        <div class="reason">
+          <div class="num">02</div>
+          <div class="ic"><svg class="i"><use href="#i-inbox"/></svg></div>
+          <h3>連絡も業務も一か所に</h3>
+          <p>LINE・メール・Chatwork の受信、定例業務の工程、会議の TODO を、顧問先ごとに同じ画面で追えます。</p>
+        </div>
+        <div class="reason">
+          <div class="num">03</div>
+          <div class="ic"><svg class="i"><use href="#i-refresh"/></svg></div>
+          <h3>使うほど、事務所が賢くなる</h3>
+          <p>役に立った回答はボタン一つで事務所のナレッジに。次の相談で出典として使われ、判断基準がたまっていきます。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="features">
+    <div class="container">
+      <div class="sec-head">
+        <h2>BADDI がある事務所の一日</h2>
+        <p>顧問先からの連絡、回答、決算期の業務、進み具合の確認まで。一件の相談が、ひとつの画面で最後までつながります。</p>
+      </div>
+
+      <ol class="flow-strip">
+        <li><span class="ic"><svg class="i"><use href="#i-send"/></svg></span><b>顧問先から連絡</b><small>LINE・メール・Chatwork</small></li>
+        <li><span class="ic"><svg class="i"><use href="#i-inbox"/></svg></span><b>受信トレイで紐付け</b><small>どの顧問先の件か</small></li>
+        <li><span class="ic"><svg class="i"><use href="#i-msg"/></svg></span><b>BADDIに相談</b><small>顧問先の情報をふまえて</small></li>
+        <li><span class="ic"><svg class="i"><use href="#i-cal"/></svg></span><b>回答案・タスクに</b><small>ワンクリックで</small></li>
+        <li><span class="ic"><svg class="i"><use href="#i-book"/></svg></span><b>ナレッジに蓄積</b><small>次の相談で引用</small></li>
+      </ol>
+
+      <div class="frow">
+        <div class="ftext">
+          <div class="flabel"><span class="ic"><svg class="i"><use href="#i-inbox"/></svg></span>受信トレイ</div>
+          <h3>顧問先から LINE で質問が届いた</h3>
+          <p>LINE・メール・Chatwork で届いた連絡は、ひとつのトレイに集まります。どの顧問先の件かが紐付き、通帳や通知書の写真もその場で確認できます。</p>
+          <ul class="checks">
+            <li><svg class="i"><use href="#i-check"/></svg><span>紐付け先が分からない連絡は「不明（未紐付け）」として保留</span></li>
+            <li><svg class="i"><use href="#i-check"/></svg><span>届いた質問から、そのまま「BADDIに相談」へ</span></li>
+          </ul>
+        </div>
+        <div class="fvisual">
+          <div class="mock" role="img" aria-label="受信トレイのイメージ。LINE・LINE WORKS・メール・Chatwork の連絡が、顧問先名つきでひとつのトレイに集まる"><div class="mk mk-inbox">
+            <div class="mk-chs">
+              <span><i style="background:var(--line-green)"></i>LINE</span>
+              <span><i style="background:#00c73c"></i>LINE WORKS</span>
+              <span><i style="background:var(--primary)"></i>メール</span>
+              <span><i style="background:#e8574b"></i>Chatwork</span>
+            </div>
+            <div class="mk-merge"><svg class="i"><use href="#i-arrow"/></svg></div>
+            <div class="mk-card">
+              <div class="mk-bar"><b>受信トレイ</b><span class="mk-count">8</span></div>
+              <div class="mk-row hl"><i class="av" style="background:var(--line-green)"></i><div><b>株式会社ネクアス</b><span class="mk-chip c-client">紐付け済み</span><div class="mk-file">通帳_2026年8月.jpg</div></div></div>
+              <div class="mk-row"><i class="av" style="background:#00c73c"></i><div><b>鈴木物産</b><i class="sk" style="width:70%"></i></div></div>
+              <div class="mk-row"><i class="av" style="background:var(--primary)"></i><div><b>山田商事株式会社</b><i class="sk" style="width:58%"></i></div></div>
+              <div class="mk-row"><i class="av" style="background:#e8574b"></i><div><b class="warn">不明（未紐付け）</b><i class="sk" style="width:48%"></i></div></div>
+            </div>
+            <div class="mk-callout" style="right:3%;top:3%">顧問先ごとに紐付け</div>
+          </div></div>
+        </div>
+      </div>
+      <div class="frow rev">
+        <div class="ftext">
+          <div class="flabel"><span class="ic"><svg class="i"><use href="#i-msg"/></svg></span>BADDIに相談</div>
+          <h3>経験が浅くても、根拠をそろえて答えたい</h3>
+          <p>山田商事を選んで「社用車の貸与について相談があった」と入力すると、山田商事の契約・決算情報、所内の判断基準、国税庁の公開資料を出典に回答します。先輩に聞く前に、根拠つきで当たりをつけられます。</p>
+          <ul class="checks">
+            <li><svg class="i"><use href="#i-check"/></svg><span>回答はワンクリックでタスク・回答案・ナレッジに</span></li>
+            <li><svg class="i"><use href="#i-check"/></svg><span>同じ顧問先で複数の相談を管理</span></li>
+          </ul>
+        </div>
+        <div class="fvisual">
+          <div class="mock" role="img" aria-label="BADDIに相談のイメージ。山田商事に紐付けた質問に、顧客専属・事務所・国税庁の3つの出典つきで回答する"><div class="mk">
+            <div class="mk-card">
+              <div class="mk-bar"><b>BADDIに相談</b><span class="mk-chip c-client">山田商事 に紐付け</span></div>
+              <div class="mk-q">山田商事から社用車の貸与について相談があった</div>
+              <div class="mk-ans">
+                <div class="mk-ans-h"><span class="mk-ai">AI</span>回答</div>
+                <i class="sk" style="width:94%"></i><i class="sk" style="width:86%"></i><i class="sk" style="width:62%"></i>
+                <div class="mk-srcbox hl">
+                  <div class="mk-cap">参考資料</div>
+                  <div class="mk-src"><span class="mk-chip c-client">顧客専属</span><i class="sk" style="width:46%"></i></div>
+                  <div class="mk-src"><span class="mk-chip c-office">事務所</span><i class="sk" style="width:38%"></i></div>
+                  <div class="mk-src"><span class="mk-chip c-public">国税庁</span><i class="sk" style="width:52%"></i></div>
+                </div>
+              </div>
+              <div class="mk-actions"><span>タスクにする</span><span>回答案にする</span><span class="on">ナレッジにする</span></div>
+            </div>
+            <div class="mk-callout" style="right:4%;top:46%">出典 3 件</div>
+          </div></div>
+        </div>
+      </div>
+      <div class="frow">
+        <div class="ftext">
+          <div class="flabel"><span class="ic"><svg class="i"><use href="#i-cal"/></svg></span>タスク管理</div>
+          <h3>決算期、顧問先ごとの工程を遅れなく回したい</h3>
+          <p>決算処理・記帳・所内請求業務などの定例業務は、顧問先の決算月に合わせて工程と期限が自動で並びます。期限が今日か過ぎたタスクは、自動で「緊急」になります。</p>
+          <ul class="checks">
+            <li><svg class="i"><use href="#i-check"/></svg><span>所長の承認が必要な工程に「先生確認」を設定</span></li>
+            <li><svg class="i"><use href="#i-check"/></svg><span>前工程が終わるまで次の工程は「前工程待ち」</span></li>
+            <li><svg class="i"><use href="#i-check"/></svg><span>業務分類・業務進捗表・月別カレンダーで切り替え表示</span></li>
+          </ul>
+        </div>
+        <div class="fvisual">
+          <div class="mock" role="img" aria-label="タスク管理のイメージ。3月決算の顧問先について、記帳・決算処理・先生確認・申告の工程と状態が並ぶ"><div class="mk">
+              <div class="mk-card">
+                <div class="mk-bar"><b>株式会社ネクアス</b><span class="mk-chip c-office">3月決算</span></div>
+                <div class="mk-step"><i class="dot ok"></i><b>記帳</b><span></span><span class="st st-ok">完了</span></div>
+                <div class="mk-step hl"><i class="dot urgent"></i><b>決算処理</b><span class="due">期限 今日</span><span class="st st-urgent">緊急</span></div>
+                <div class="mk-step"><i class="dot wait"></i><b>先生確認</b><span></span><span class="st st-check">承認待ち</span></div>
+                <div class="mk-step"><i class="dot"></i><b>申告</b><span></span><span class="st st-gray">前工程待ち</span></div>
+              </div>
+              <div class="mk-callout" style="left:5%;bottom:4%">期限が来たら自動で「緊急」</div>
+            </div></div>
+        </div>
+      </div>
+      <div class="frow rev">
+        <div class="ftext">
+          <div class="flabel"><span class="ic"><svg class="i"><use href="#i-users"/></svg></span>顧客管理</div>
+          <h3>所長として、事務所全体の進み具合を知りたい</h3>
+          <p>顧問先ごとの決算月、業務の状態、未対応の受信件数を一覧できます。担当者に一人ずつ聞いて回らなくても、遅れている顧問先が分かります。</p>
+          <ul class="checks">
+            <li><svg class="i"><use href="#i-check"/></svg><span>「決算処理：遅延」「先生確認待ち」などを色分け表示</span></li>
+            <li><svg class="i"><use href="#i-check"/></svg><span>決算月の未入力も警告で表示</span></li>
+          </ul>
+        </div>
+        <div class="fvisual">
+          <div class="mock" role="img" aria-label="顧客管理のイメージ。顧問先ごとの決算月と業務の状態、未対応の受信件数が色分けで並ぶ"><div class="mk">
+              <div class="mk-card">
+                <div class="mk-bar"><b>顧客管理</b></div>
+                <div class="mk-tr mk-th"><span>顧問先</span><span>決算月</span><span>状態</span><span>受信</span></div>
+                <div class="mk-tr"><b>株式会社ネクアス</b><span>3月</span><span class="st st-check">先生確認待ち</span><span class="badge">2</span></div>
+                <div class="mk-tr hl"><b>山田商事</b><span>6月</span><span class="st st-urgent">決算処理：遅延</span><span class="badge">1</span></div>
+                <div class="mk-tr"><b>田中製作所</b><span class="warn">未入力</span><span class="st st-gray">未着手</span><span></span></div>
+                <div class="mk-tr"><b>佐藤工務店</b><span>9月</span><span class="st st-blue">進行中</span><span></span></div>
+                <div class="mk-tr"><b>鈴木物産</b><span>12月</span><span class="st st-ok">記帳：完了</span><span></span></div>
+              </div>
+              <div class="mk-callout" style="right:4%;bottom:4%">遅れが一目で分かる</div>
+            </div></div>
+        </div>
+      </div>
+
+      <div class="mini-feature">
+        <div class="ic"><svg class="i"><use href="#i-file"/></svg></div>
+        <div>
+          <div class="snum-s">会議記録</div>
+          <h3>会議で決まったことを、そのまま担当者のタスクに</h3>
+          <p>会議の要約から TODO を起こして担当者に割り振ります。議事録を読み返して作業を拾い出す手間がなくなります。</p>
+        </div>
+      </div>
+      <div class="mini-feature" style="margin-top:16px">
+        <div class="ic"><svg class="i"><use href="#i-file-alert"/></svg></div>
+        <div>
+          <div class="snum-s">法令改正</div>
+          <h3>改正の影響を受けそうな顧問先を、候補として一覧に</h3>
+          <p>「法令改正」の画面で「分析」を押すと、影響がありそうな顧問先を確認待ちの候補として並べます。該当するかどうかは担当者が確認して決めます。候補の精度は、顧問先ごとの登録情報によって変わります。</p>
+        </div>
+      </div>
+      <p class="feat-note">画面内の顧問先名・担当者名はすべて架空です。</p>
+    </div>
+  </section>
+
+  <!-- LOOP -->
+  <section class="bg-gray" id="learning">
+    <div class="container">
+      <div class="sec-head">
+        <h2>一度の相談が、次の回答の材料になる</h2>
+        <p>相談が増えるほど、事務所の答えの根拠が厚くなります。ナレッジの検索には、Sparticle の「GBase」を採用しています。</p>
+      </div>
+      <div class="loop">
+        <div class="lstep">
+          <div class="ic"><svg class="i"><use href="#i-msg"/></svg></div>
+          <div class="n">STEP 1</div>
+          <h3>顧問先を選んで相談</h3>
+          <p>職員が顧問先に紐付けて質問</p>
+        </div>
+        <div class="lstep">
+          <div class="ic"><svg class="i"><use href="#i-book"/></svg></div>
+          <div class="n">STEP 2</div>
+          <h3>出典つきで回答</h3>
+          <p>どの資料を参照したかを表示</p>
+        </div>
+        <div class="lstep key">
+          <div class="ic"><svg class="i"><use href="#i-spark"/></svg></div>
+          <div class="n">STEP 3</div>
+          <h3>「ナレッジにする」</h3>
+          <p>確認した回答を事務所の知識として保存</p>
+        </div>
+        <div class="lstep">
+          <div class="ic"><svg class="i"><use href="#i-refresh"/></svg></div>
+          <div class="n">STEP 4</div>
+          <h3>次の相談で引用</h3>
+          <p>似た相談の出典として使われる</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECURITY -->
+  <section class="security" id="security">
+    <div class="container">
+      <div class="sec-head">
+        <h2>「安全です」とは書きません。<br>何をしているかを、そのまま書きます</h2>
+        <p>顧問先の情報をお預かりする以上、仕組みを具体的にお見せします。以下は現在の本番環境で動いている内容です。</p>
+      </div>
+      <div class="sec-stats">
+        <div><div class="v">4<small>つ</small></div><div class="l">権限の種類</div><div class="d">管理者・税理士・職員・閲覧のみ</div></div>
+        <div><div class="v">37<small>種類</small></div><div class="l">記録する操作</div><div class="d">IP アドレスとともに保存</div></div>
+        <div><div class="v">256<small>bit</small></div><div class="l">AES-256-GCM 暗号化</div><div class="d">鍵はデータベースと別管理</div></div>
+      </div>
+      <div class="flow roles-panel">
+        <h3>AI は判断しません。最後は税理士が確認します</h3>
+        <p>税務の判断と顧問先への回答は、税理士の仕事です。BADDI は調べものと下準備を引き受け、判断と送信は人に残します。</p>
+        <div class="roles">
+          <div class="role ai">
+            <div class="role-head"><div class="ic"><svg class="i"><use href="#i-spark"/></svg></div><div><h3>BADDI が引き受けること</h3><small>調べもの・下準備</small></div></div>
+            <ul>
+              <li><svg class="i"><use href="#i-check"/></svg><span>顧問先の資料・所内ナレッジ・公開資料を探し、出典つきで答える</span></li>
+              <li><svg class="i"><use href="#i-check"/></svg><span>回答を回答案やタスクの形に整える</span></li>
+              <li><svg class="i"><use href="#i-check"/></svg><span>定例業務の工程と期限を組み、遅れを知らせる</span></li>
+            </ul>
+          </div>
+          <div class="handoff"><div><svg class="i"><use href="#i-arrow"/></svg>確認を<br>依頼</div></div>
+          <div class="role human">
+            <div class="role-head"><div class="ic"><svg class="i"><use href="#i-user-check"/></svg></div><div><h3>税理士・職員が行うこと</h3><small>判断・承認・送信</small></div></div>
+            <ul>
+              <li><svg class="i"><use href="#i-check"/></svg><span>回答案を確認し、顧問先へ送るかどうかを決める</span></li>
+              <li><svg class="i"><use href="#i-check"/></svg><span>「先生確認」の工程で、所長が承認または差し戻す</span></li>
+              <li><svg class="i"><use href="#i-check"/></svg><span>職員の返信は、所長の承認を経て送る設定にもできる</span></li>
+              <li><svg class="i"><use href="#i-check"/></svg><span>AI の生成物をもとにした操作は、区別して記録に残る</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="guard-grid">
+        <div class="guard">
+          <div class="ic"><svg class="i"><use href="#i-building"/></svg></div>
+          <h3>他の事務所の情報は見えない</h3>
+          <p>データベースへのすべての問い合わせに、共通の仕組みが事務所の識別子を自動で付けます。事務所をまたいで読む経路がありません。</p>
+        </div>
+        <div class="guard">
+          <div class="ic"><svg class="i"><use href="#i-users"/></svg></div>
+          <h3>事務所内でも担当先だけ</h3>
+          <p>管理者・税理士・職員・閲覧のみの 4 つの権限に加え、各自が担当する顧問先だけを表示します。</p>
+        </div>
+        <div class="guard">
+          <div class="ic"><svg class="i"><use href="#i-lock"/></svg></div>
+          <h3>機微な項目は暗号化して保存</h3>
+          <p><code>AES-256-GCM</code> で暗号化し、鍵はデータベースと分けて管理。電話・住所、e-Tax／eLTAX の暗証番号、メール本文、会議記録などが対象です。</p>
+        </div>
+        <div class="guard">
+          <div class="ic"><svg class="i"><use href="#i-eye-off"/></svg></div>
+          <h3>電子申告の暗証番号は特別扱い</h3>
+          <p>画面では伏せ字。表示できるのは担当者と管理者だけで、表示のたびに「誰が・いつ・どの顧問先の」を記録します。CSV 出力にも含めません。</p>
+        </div>
+        <div class="guard">
+          <div class="ic"><svg class="i"><use href="#i-refresh"/></svg></div>
+          <h3>AI 送信前に、個人情報を置換</h3>
+          <p>登録済みの氏名・電話番号・メールアドレスなどを記号に置き換えてから AI に送り、回答を受け取ったあとで元に戻します。登録内容と完全に一致するものが対象で、PDF や写真の中身は含みません。</p>
+        </div>
+        <div class="guard">
+          <div class="ic"><svg class="i"><use href="#i-eye-off"/></svg></div>
+          <h3>マイナンバーは自動で伏せ字</h3>
+          <p>新たに保存する内容に含まれるマイナンバーは、自動で伏せ字にします。PDF や写真の中身は対象外です。</p>
+        </div>
+        <div class="guard">
+          <div class="ic"><svg class="i"><use href="#i-log"/></svg></div>
+          <h3>誰が・何をしたかを記録</h3>
+          <p>閲覧・変更・削除・メール／LINE 送信・データ出力・承認などを IP アドレスとともに記録。AI の生成物をもとにした操作かどうかも区別します。</p>
+        </div>
+        <div class="guard">
+          <div class="ic"><svg class="i"><use href="#i-download"/></svg></div>
+          <h3>データは取り出せて、消せる</h3>
+          <p>顧問先ごとにデータを書き出せます。削除は「非表示」と「完全削除」の二段階で、完全削除の前に消える内容を確認できます。</p>
+        </div>
+      </div>
+
+      <div class="flow">
+        <h3>外部の AI に送る内容</h3>
+        <p>AI を使う以上、一部の情報は外部の AI サービスに送られます。データがどこにあり、どこで止まり、何が外に出るかを図で示します。</p>
+        <div class="arch">
+          <div class="arch-in">
+            <div class="arch-zone-label"><svg class="i"><use href="#i-shield"/></svg>BADDI ｜ 事務所ごとに分けられた環境</div>
+            <div class="arch-stack">
+              <div class="arch-box">
+                <div class="ic"><svg class="i"><use href="#i-users"/></svg></div>
+                <div><h4>税理士・職員</h4><p>4 つの権限＋担当先だけ表示</p></div>
+              </div>
+              <div class="arch-down"></div>
+              <div class="arch-box dark">
+                <div class="ic"><svg class="i"><use href="#i-building"/></svg></div>
+                <div><h4>共通層</h4><p>すべての問い合わせに事務所の識別子を自動付与</p></div>
+              </div>
+              <div class="arch-down"></div>
+              <div class="arch-box">
+                <div class="ic"><svg class="i"><use href="#i-db"/></svg></div>
+                <div><h4>事務所のデータ</h4><p>顧問先情報・ナレッジ・受信・会議記録</p>
+                <span class="arch-tag"><svg class="i"><use href="#i-lock"/></svg>機微項目は AES-256-GCM で暗号化（鍵は別管理）</span></div>
+              </div>
+            </div>
+            <div class="arch-right"><svg class="i"><use href="#i-arrow"/></svg></div>
+            <div class="arch-gates">
+              <div class="arch-gate-head">AI に送る前の仕分け</div>
+              <div class="arch-lane">
+                <div class="lane-name"><svg class="i"><use href="#i-msg"/></svg>BADDIに相談</div>
+                <div class="lane-row"><span class="lane-k ok">送る</span><div class="pills"><span class="pill out"><svg class="i"><use href="#i-send"/></svg>質問文</span><span class="pill out"><svg class="i"><use href="#i-send"/></svg>参照したナレッジの本文</span></div></div>
+                <div class="lane-row"><span class="lane-k rp">置換</span><div class="pills"><span class="pill rp"><svg class="i"><use href="#i-refresh"/></svg>登録済みの氏名・電話・メールは記号に</span></div></div>
+                <div class="lane-row"><span class="lane-k ng">止める</span><div class="pills"><span class="pill stop"><svg class="i"><use href="#i-x"/></svg>紐付け外の顧問先情報</span></div></div>
+              </div>
+              <div class="arch-lane">
+                <div class="lane-name"><svg class="i"><use href="#i-globe"/></svg>公的ナレッジの検索</div>
+                <div class="lane-row"><span class="lane-k ok">送る</span><div class="pills"><span class="pill out"><svg class="i"><use href="#i-send"/></svg>質問文</span><span class="pill out"><svg class="i"><use href="#i-send"/></svg>ナレッジのタイトル・要約</span></div></div>
+                <div class="lane-row"><span class="lane-k ng">止める</span><div class="pills"><span class="pill stop"><svg class="i"><use href="#i-x"/></svg>顧問先固有の情報（プログラムで遮断）</span></div></div>
+              </div>
+            </div>
+            <div class="arch-log"><svg class="i"><use href="#i-log"/></svg>37 種類の操作を IP アドレスとともに記録。AI の生成物をもとにした操作かどうかも区別します。</div>
+          </div>
+          <div class="arch-edge"><span>外部</span></div>
+          <div class="arch-out">
+            <div class="arch-send"><svg class="i"><use href="#i-arrow"/></svg>送る内容のみ</div>
+            <div class="arch-box ai">
+              <div class="ic"><svg class="i"><use href="#i-cpu"/></svg></div>
+              <div><h4>外部の AI サービス</h4><p>回答の生成に使用</p></div>
+            </div>
+            <div class="arch-back"><svg class="i"><use href="#i-arrow"/></svg>回答を BADDI に返す</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TODO: 「学習に使わない」契約・処理地域・専用自動バックアップが本番で確定したら guard と FAQ を更新（現状はすべて計画中） -->
+    </div>
+  </section>
+
+
+  <!-- TODO: 先行導入事務所の計測（過去回答を探す時間・進捗確認の回数など）が取れたら効果の数字セクションを追加 -->
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="container">
+      <div class="sec-head">
+        <h2>よくある質問</h2>
+      </div>
+      <div class="faq">
+        <details>
+          <summary><span>他の事務所から、うちの顧問先の情報が見えることはありますか？</span><svg class="i"><use href="#i-plus"/></svg></summary>
+          <p>ありません。データベースへのすべての問い合わせに事務所の識別子が自動で付くため、事務所をまたいで情報を読む経路がありません。</p>
+        </details>
+        <details>
+          <summary><span>職員全員が、すべての顧問先を見られますか？</span><svg class="i"><use href="#i-plus"/></svg></summary>
+          <p>いいえ。管理者・税理士・職員・閲覧のみの 4 つの権限があり、加えて各自が担当する顧問先だけが表示されます。</p>
+        </details>
+        <details>
+          <summary><span>AI にはどんな情報が送られますか？</span><svg class="i"><use href="#i-plus"/></svg></summary>
+          <p>「BADDIに相談」では、質問文と参照したナレッジの本文が外部の AI サービスに送られます。公的ナレッジの検索では、質問文とナレッジのタイトル・要約のみを送り、顧問先固有の情報はプログラムの段階で遮断しています。送る前に、登録済みの氏名・電話番号・メールアドレスなどは記号に置き換えます（登録内容と完全に一致するものが対象で、PDF や写真の中身は含みません）。</p>
+        </details>
+        <details>
+          <summary><span>送った内容は AI の学習に使われますか？</span><svg class="i"><use href="#i-plus"/></svg></summary>
+          <p>現在は外部の生成 AI サービスを利用しており、処理する地域は指定できません。学習に使わないことを定めた契約条件の適用は計画中です。導入時に現状を個別にご説明します。</p>
+        </details>
+        <details>
+          <summary><span>バックアップはどうなっていますか？</span><svg class="i"><use href="#i-plus"/></svg></summary>
+          <p>現在は運営会社の統一したバックアップ方針に沿って、定期的に取得しています。BADDI 専用の自動バックアップは計画中です。</p>
+        </details>
+        <details>
+          <summary><span>どの連絡手段に対応していますか？</span><svg class="i"><use href="#i-plus"/></svg></summary>
+          <p>LINE（LINE WORKS を含む）、メール、Chatwork の受信を一つのトレイに集約できます。</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta" id="contact">
+    <div class="container" style="padding-top:96px">
+      <div class="cta-box">
+        <div>
+          <h2>BADDI について、<br>お気軽にお問い合わせください</h2>
+          <p>導入のご相談から、顧問先情報の扱いについてのご質問まで、お答えします。</p>
+        </div>
+        <div class="cta-actions">
+          <a class="btn btn-white" href="https://www.sparticle.com/ja/contact-us-jp" target="_blank" rel="noopener">お問い合わせ <svg class="i"><use href="#i-arrow"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <img src="img/logo.png" alt="BADDI" width="106" height="86">
+        <p>ベテランの経験を、使うほど賢くなる「事務所の脳」に。税理士事務所のための業務AI。</p>
+        <p class="foot-provider">提供：<a href="https://www.sparticle.com/ja" target="_blank" rel="noopener">Sparticle株式会社</a></p>
+      </div>
+      <div>
+        <h4>利用シーンと機能</h4>
+        <ul>
+          <li><a href="#features">受信トレイ</a></li>
+          <li><a href="#features">BADDIに相談</a></li>
+          <li><a href="#features">タスク管理</a></li>
+          <li><a href="#features">顧客管理</a></li>
+          <li><a href="#learning">使うほど賢くなる仕組み</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>セキュリティ</h4>
+        <ul>
+          <li><a href="#security">情報の守り方</a></li>
+          <li><a href="#security">AI と税理士の役割</a></li>
+          <li><a href="#faq">よくある質問</a></li>
+          <li><a href="https://www.sparticle.com/ja/contact-us-jp" target="_blank" rel="noopener">お問い合わせ</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>その他のプロダクト</h4>
+        <ul>
+          <li><a href="https://gbase.ai/" target="_blank" rel="noopener" class="nw">GBase<span class="fdesc">（ナレッジ AI）</span></a></li>
+          <li><a href="https://cs.gbase.ai/" target="_blank" rel="noopener" class="nw">GBase Support<span class="fdesc">（AIサポート）</span></a></li>
+          <li><a href="https://onprem.gbase.ai/" target="_blank" rel="noopener" class="nw">GBase OnPrem<span class="fdesc">（オンプレ AI）</span></a></li>
+          <li><a href="https://subtitles.felo.me/" target="_blank" rel="noopener" class="nw">Felo字幕<span class="fdesc">（多言語字幕）</span></a></li>
+          <li><a href="https://felo.me/ja/business-translator" target="_blank" rel="noopener" class="nw">Felo瞬訳<span class="fdesc">（AI 翻訳）</span></a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Sparticle について</h4>
+        <ul>
+          <li><a href="https://www.sparticle.com/ja/company" target="_blank" rel="noopener">企業情報</a></li>
+          <li><a href="https://www.sparticle.com/ja/security" target="_blank" rel="noopener">セキュリティへの取り組み</a></li>
+          <li><a href="https://www.sparticle.com/ja/recruit" target="_blank" rel="noopener">採用情報</a></li>
+          <li><a href="https://www.sparticle.com/ja/privacy" target="_blank" rel="noopener">個人情報保護方針</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>Copyright © Sparticle Inc. All Rights Reserved.</span>
+      <span>画面写真はデモ環境のもので、顧問先名・人物名はすべて架空です。</span>
+    </div>
+  </div>
+</footer>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "BADDI",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Web",
+  "url": "https://baddi.gbase.ai",
+  "description": "税理士事務所のための業務AI。顧問先ごとに出典つきで答える相談、定例業務の工程管理、LINE・メール・Chatwork の受信集約。",
+  "provider": {"@type": "Organization", "name": "Sparticle株式会社", "url": "https://www.sparticle.com/ja"}
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Sparticle株式会社",
+  "alternateName": "Sparticle Inc.",
+  "url": "https://www.sparticle.com/ja",
+  "contactPoint": {"@type": "ContactPoint", "contactType": "sales", "url": "https://www.sparticle.com/ja/contact-us-jp", "availableLanguage": "Japanese"}
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "他の事務所から、うちの顧問先の情報が見えることはありますか？", "acceptedAnswer": {"@type": "Answer", "text": "ありません。データベースへのすべての問い合わせに事務所の識別子が自動で付くため、事務所をまたいで情報を読む経路がありません。"}},
+    {"@type": "Question", "name": "職員全員が、すべての顧問先を見られますか？", "acceptedAnswer": {"@type": "Answer", "text": "いいえ。管理者・税理士・職員・閲覧のみの 4 つの権限があり、加えて各自が担当する顧問先だけが表示されます。"}},
+    {"@type": "Question", "name": "AI にはどんな情報が送られますか？", "acceptedAnswer": {"@type": "Answer", "text": "「BADDIに相談」では、質問文と参照したナレッジの本文が外部の AI サービスに送られます。公的ナレッジの検索では、質問文とナレッジのタイトル・要約のみを送り、顧問先固有の情報はプログラムの段階で遮断しています。送る前に、登録済みの氏名・電話番号・メールアドレスなどは記号に置き換えます（登録内容と完全に一致するものが対象で、PDF や写真の中身は含みません）。"}},
+    {"@type": "Question", "name": "送った内容は AI の学習に使われますか？", "acceptedAnswer": {"@type": "Answer", "text": "現在は外部の生成 AI サービスを利用しており、処理する地域は指定できません。学習に使わないことを定めた契約条件の適用は計画中です。導入時に現状を個別にご説明します。"}},
+    {"@type": "Question", "name": "バックアップはどうなっていますか？", "acceptedAnswer": {"@type": "Answer", "text": "現在は運営会社の統一したバックアップ方針に沿って、定期的に取得しています。BADDI 専用の自動バックアップは計画中です。"}},
+    {"@type": "Question", "name": "どの連絡手段に対応していますか？", "acceptedAnswer": {"@type": "Answer", "text": "LINE（LINE WORKS を含む）、メール、Chatwork の受信を一つのトレイに集約できます。"}}
+  ]
+}
+</script>
