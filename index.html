@@ -268,13 +268,15 @@ section { padding-block: 96px; }
 .mk-inbox { grid-template-columns: auto auto minmax(0, 1fr); gap: .9em; padding-inline: 5%; font-size: 2.75cqw; }
 .mk-chs { display: grid; gap: .6em; }
 .mk-chs span { display: flex; align-items: center; gap: .45em; background: #fff; border: 1px solid #e5e9f0; border-radius: .6em; padding: .45em .7em; font-size: .82em; font-weight: 700; white-space: nowrap; box-shadow: 0 .3em .8em -.4em rgba(15,23,42,.2); }
-.mk-chs i { width: .7em; height: .7em; border-radius: .2em; }
+.mk-chs .chi { width: 1.7em; height: 1.7em; border-radius: .45em; display: grid; place-items: center; color: #fff; flex: none; }
+.mk-chs .chi svg { width: 1.1em; height: 1.1em; }
 .mk-merge { color: var(--primary); }
 .mk-merge svg.i { width: 2em; height: 2em; }
 .mk-count { background: var(--red); color: #fff; font-size: .75em; font-weight: 800; border-radius: 99em; padding: .05em .55em; margin-right: auto; }
 .mk-inbox .mk-bar b { margin-right: 0; }
 .mk-row { display: grid; grid-template-columns: 1.9em minmax(0, 1fr); gap: .6em; align-items: start; padding: .45em .5em; border: 1px solid transparent; border-radius: .7em; }
-.mk-row .av { width: 1.9em; height: 1.9em; border-radius: 50%; opacity: .9; }
+.mk-row .av { width: 1.9em; height: 1.9em; border-radius: 50%; display: grid; place-items: center; color: #fff; }
+.mk-row .av svg { width: 1.1em; height: 1.1em; }
 .mk-row b { font-size: .88em; margin-right: .4em; }
 .mk-row .sk { margin-top: .45em; }
 .mk-file { margin-top: .35em; font-size: .72em; color: var(--primary); background: var(--primary-soft); display: inline-block; padding: .1em .6em; border-radius: .4em; }
@@ -488,6 +490,10 @@ footer a:hover { color: #fff; }
 
 <!-- icon sprite -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="ch-line" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M12 3.5c-5 0-9 3.2-9 7.2 0 3.6 3.2 6.6 7.5 7.1.3.1.7.2.8.5.1.2.1.6 0 .9l-.1.8c0 .2-.2.9.8.5s5.4-3.2 7.4-5.5c1.4-1.5 2-3 2-4.3 0-4-4-7.2-9-7.2z"/></symbol>
+  <symbol id="ch-lw" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M9.5 3C5.4 3 2 5.7 2 9c0 1.9 1.1 3.6 2.8 4.7L4.3 16l2.9-1.6c.7.2 1.5.3 2.3.3 4.1 0 7.5-2.7 7.5-6S13.6 3 9.5 3z"/><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M18.6 9.6c1.8 1 3 2.6 3 4.4 0 1.5-.8 2.8-2.1 3.8l.4 2.2-2.5-1.3c-.6.1-1.2.2-1.8.2-2.2 0-4.1-.8-5.3-2.1"/></symbol>
+  <symbol id="ch-mail" viewBox="0 0 24 24"><rect x="3" y="5.5" width="18" height="13" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="m3.8 7 8.2 6 8.2-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="ch-cw" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M12 3C6.5 3 2 6.6 2 11c0 2.4 1.3 4.5 3.4 6L4.6 21l4.2-2.4c1 .3 2.1.4 3.2.4 5.5 0 10-3.6 10-8s-4.5-8-10-8z"/><circle cx="7.6" cy="11" r="1.4" fill="#e8574b"/><circle cx="12" cy="11" r="1.4" fill="#e8574b"/><circle cx="16.4" cy="11" r="1.4" fill="#e8574b"/></symbol>
   <symbol id="i-msg" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 9h8M8 13h5"/></symbol>
   <symbol id="i-inbox" viewBox="0 0 24 24"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></symbol>
   <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18M9 16l2 2 4-4"/></symbol>
@@ -653,18 +659,18 @@ footer a:hover { color: #fff; }
         <div class="fvisual">
           <div class="mock" role="img" aria-label="受信トレイのイメージ。LINE・LINE WORKS・メール・Chatwork の連絡が、顧問先名つきでひとつのトレイに集まる"><div class="mk mk-inbox">
             <div class="mk-chs">
-              <span><i style="background:var(--line-green)"></i>LINE</span>
-              <span><i style="background:#00c73c"></i>LINE WORKS</span>
-              <span><i style="background:var(--primary)"></i>メール</span>
-              <span><i style="background:#e8574b"></i>Chatwork</span>
+              <span><i class="chi" style="background:var(--line-green)"><svg><use href="#ch-line"/></svg></i>LINE</span>
+              <span><i class="chi" style="background:#00c73c"><svg><use href="#ch-lw"/></svg></i>LINE WORKS</span>
+              <span><i class="chi" style="background:var(--primary)"><svg><use href="#ch-mail"/></svg></i>メール</span>
+              <span><i class="chi" style="background:#e8574b"><svg><use href="#ch-cw"/></svg></i>Chatwork</span>
             </div>
             <div class="mk-merge"><svg class="i"><use href="#i-arrow"/></svg></div>
             <div class="mk-card">
               <div class="mk-bar"><b>受信トレイ</b><span class="mk-count">8</span></div>
-              <div class="mk-row hl"><i class="av" style="background:var(--line-green)"></i><div><b>株式会社ネクアス</b><span class="mk-chip c-client">紐付け済み</span><div class="mk-file">通帳_2026年8月.jpg</div></div></div>
-              <div class="mk-row"><i class="av" style="background:#00c73c"></i><div><b>鈴木物産</b><i class="sk" style="width:70%"></i></div></div>
-              <div class="mk-row"><i class="av" style="background:var(--primary)"></i><div><b>山田商事株式会社</b><i class="sk" style="width:58%"></i></div></div>
-              <div class="mk-row"><i class="av" style="background:#e8574b"></i><div><b class="warn">不明（未紐付け）</b><i class="sk" style="width:48%"></i></div></div>
+              <div class="mk-row hl"><i class="av" style="background:var(--line-green)"><svg><use href="#ch-line"/></svg></i><div><b>株式会社ネクアス</b><span class="mk-chip c-client">紐付け済み</span><div class="mk-file">通帳_2026年8月.jpg</div></div></div>
+              <div class="mk-row"><i class="av" style="background:#00c73c"><svg><use href="#ch-lw"/></svg></i><div><b>鈴木物産</b><i class="sk" style="width:70%"></i></div></div>
+              <div class="mk-row"><i class="av" style="background:var(--primary)"><svg><use href="#ch-mail"/></svg></i><div><b>山田商事株式会社</b><i class="sk" style="width:58%"></i></div></div>
+              <div class="mk-row"><i class="av" style="background:#e8574b"><svg><use href="#ch-cw"/></svg></i><div><b class="warn">不明（未紐付け）</b><i class="sk" style="width:48%"></i></div></div>
             </div>
             <div class="mk-callout" style="right:3%;top:3%">顧問先ごとに紐付け</div>
           </div></div>
